@@ -63,7 +63,26 @@ function renderizarTabela(chamados) {
         tdStatus.innerHTML = `<span style="color: ${cor}; font-weight: bold;">${chamado.status}</span>`; // O status vem do nosso Enum no Java, é 100% seguro.
         
         tr.insertCell().textContent = chamado.categoria.replace('_', ' '); // Tira o sublinhado do REDE_INTERNET
+
+        const tdAcoes = tr.insertCell();
+
+    if (chamado.status != 'RESOLVIDO') {
+        const btnResolver = document.createElement('button')
+        btnResolver.textContent = 'Resolver';
+
+        btnResolver.style.backgroundColor = '#28a745';
+        btnResolver.style.padding = '0.4rem 0.5rem';
+        btnResolver.style.fontSize = '0.85rem';
+
+        btnResolver.addEventListener('click', () => {marcarResolvido(chamado.id)});
+        tdAcoes.appendChild(btnResolver);
+    } else { 
+        tdAcoes.textContent = 'Finalizado';
+        tdAcoes.style.color = 'gray';
+        tdAcoes.style.fontStyle = 'italic';
+    }
     });
+
 }
 
 // 4. FUNÇÃO: ABRIR NOVO CHAMADO (POST)
