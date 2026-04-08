@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSupport - Painel de Chamados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>EduSupport SMED</h1>
+        <p>Sistema de Suporte Técnico Escolar</p>
+    </header>
+
+    <main class="container">
+        <section class="painel-abertura">
+            <h2>Abrir Novo Chamado</h2>
+            <form id="form-chamado">
+                <label for="titulo">Título do Problema:</label>
+                <input type="text" id="titulo" placeholder="Ex: Internet caindo" required>
+
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" rows="4" placeholder="Detalhes do problema..." required></textarea>
+
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" required>
+                    <option value="REDE_INTERNET">Rede e Internet</option>
+                    <option value="HARDWARE">Equipamentos/Hardware</option>
+                    <option value="IMPRESSORA">Impressoras</option>
+                    <option value="SISTEMA">Sistemas/Software</option>
+                </select>
+
+                <label for="prioridade">Prioridade:</label>
+                <select id="prioridade" required>
+                    <option value="BAIXA">Baixa</option>
+                    <option value="MEDIA">Média</option>
+                    <option value="ALTA">Alta</option>
+                </select>
+
+                <button type="submit">Enviar Chamado</button>
+            </form>
+        </section>
+
+        <section class="painel-listagem">
+            <h2>Chamados Recentes</h2>
+            
+            <table id="tabela-chamados">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Status</th>
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-chamados-body">
+                    <tr>
+                        <td colspan="4">Carregando chamados...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="paginacao">
+                <button id="btn-anterior" disabled>« Anterior</button>
+                <span id="info-pagina">Página 1 de 1</span>
+                <button id="btn-proximo" disabled>Próxima »</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
