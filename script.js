@@ -149,3 +149,31 @@ document.getElementById('btn-proximo').addEventListener('click', () => {
     paginaAtual++;
     carregarChamados(paginaAtual);
 });
+
+// 6. RESOLVER CHAMADO
+
+async function marcarResolvido(id) {
+
+    if (!confirm(`Tem certeza que deseja marcar o chamado #${id} como resolvido?`)){
+        return;
+    }
+
+    try {
+        const url = `${API_BASE_URL}/${id}/resolver`;
+
+        const resposta = await fetch(url, { method: 'PUT'});
+
+        if (resposta.ok) {
+            alert('Chamado resolvido com sucesso')
+            carregarChamados(paginaAtual);
+        } else if (resposta.status === 400) {
+            alert('Operação negada pelo servidor: O chamado precisa estar EM ANDAMENTO para ser resolvido.');
+        } else {
+            alert('Falha ao tentar resolver o chamado.');
+        }
+    } catch (erro) {
+        console.error('Erro ao resolver chamado:', erro);
+        alert('Erro de conexão com o servidor Java.');
+    }
+
+}
