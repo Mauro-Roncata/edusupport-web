@@ -63,25 +63,7 @@ function renderizarTabela(chamados) {
         tdStatus.innerHTML = `<span style="color: ${cor}; font-weight: bold;">${chamado.status}</span>`; // O status vem do nosso Enum no Java, é 100% seguro.
         
         tr.insertCell().textContent = chamado.categoria.replace('_', ' '); // Tira o sublinhado do REDE_INTERNET
-
-        const tdAcoes = tr.insertCell();
-
-    if (chamado.status != 'RESOLVIDO') {
-        const btnResolver = document.createElement('button')
-        btnResolver.textContent = 'Resolver';
-
-        btnResolver.style.backgroundColor = '#28a745';
-        btnResolver.style.padding = '0.4rem 0.5rem';
-        btnResolver.style.fontSize = '0.85rem';
-
-        btnResolver.addEventListener('click', () => {marcarResolvido(chamado.id)});
-        tdAcoes.appendChild(btnResolver);
-    } else { 
-        tdAcoes.textContent = 'Finalizado';
-        tdAcoes.style.color = 'gray';
-        tdAcoes.style.fontStyle = 'italic';
-    }
-    });
+    })
 
 }
 
@@ -149,31 +131,3 @@ document.getElementById('btn-proximo').addEventListener('click', () => {
     paginaAtual++;
     carregarChamados(paginaAtual);
 });
-
-// 6. RESOLVER CHAMADO
-
-async function marcarResolvido(id) {
-
-    if (!confirm(`Tem certeza que deseja marcar o chamado #${id} como resolvido?`)){
-        return;
-    }
-
-    try {
-        const url = `${API_BASE_URL}/${id}/resolver`;
-
-        const resposta = await fetch(url, { method: 'PUT'});
-
-        if (resposta.ok) {
-            alert('Chamado resolvido com sucesso')
-            carregarChamados(paginaAtual);
-        } else if (resposta.status === 400) {
-            alert('Operação negada pelo servidor: O chamado precisa estar EM ANDAMENTO para ser resolvido.');
-        } else {
-            alert('Falha ao tentar resolver o chamado.');
-        }
-    } catch (erro) {
-        console.error('Erro ao resolver chamado:', erro);
-        alert('Erro de conexão com o servidor Java.');
-    }
-
-}

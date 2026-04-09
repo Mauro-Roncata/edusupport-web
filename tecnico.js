@@ -92,7 +92,7 @@ async function assumirChamado(id) {
     if (!confirm(`Deseja assumir o atendimento do chamado #${id}?`)) return;
 
     try {
-        const resposta = await fetch(`${API_BASE_URL}/${id}/assumir`, { method: 'PUT' });
+        const resposta = await fetch(`${API_BASE_URL}/${id}/atender`, { method: 'PUT' });
         if (resposta.ok) {
             carregarFilaTI(paginaAtual); // Atualiza a tela
         } else {
